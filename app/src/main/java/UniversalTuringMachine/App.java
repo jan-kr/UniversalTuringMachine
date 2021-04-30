@@ -15,25 +15,41 @@ public class App {
         HashSet<Transition> transitionList = new HashSet<>();
 
         // Setup of Turing Machine
-        /*transitionList.add(new Transition("q0", "0", "0", 'r', "q1"));
-        transitionList.add(new Transition("q1", "1", "1", 'r', "q2"));
-        transitionList.add(new Transition("q2", "0", "0", 'r', "q2"));
-        transitionList.add(new Transition("q2", " ", " ", 'l', "q3"));
-        transitionList.add(new Transition("q3", "0", " ", 'l', "q3"));
-        transitionList.add(new Transition("q3", "1", "1", 'l', "q4"));*/
-
         transitionList.add(new Transition("q0", "0", "0", 'r', "q0"));
-        transitionList.add(new Transition("q0", "1", "X", 'r', "q1"));
-        transitionList.add(new Transition("q1", "X", "X", 'r', "q1"));
-        transitionList.add(new Transition("q1", "0", "X", 'l', "q2"));
-        transitionList.add(new Transition("q2", "X", "X", 'l', "q2"));
-        transitionList.add(new Transition("q2", "0", "X", 'r', "q1"));
-        transitionList.add(new Transition("q1", " ", " ", 'l', "q3"));
-        transitionList.add(new Transition("q3", "X", " ", 'l', "q3"));
+        transitionList.add(new Transition("q0", "1", "1", 'r', "q1"));
+        transitionList.add(new Transition("q1", " ", " ", 'l', "q15"));
+        transitionList.add(new Transition("q1", "0", "0", 'l', "q2"));
+        transitionList.add(new Transition("q2", "1", "1", 'l', "q3"));
+        transitionList.add(new Transition("q3", "0", "0", 'l', "q3"));
         transitionList.add(new Transition("q3", " ", " ", 'r', "q4"));
-        transitionList.add(new Transition("q3", "0", "0", 'r', "q4"));
+        transitionList.add(new Transition("q4", "0", " ", 'r', "q5"));
+        transitionList.add(new Transition("q4", "1", " ", 'r', "q16"));
+        transitionList.add(new Transition("q5", "0", "0", 'r', "q5"));
+        transitionList.add(new Transition("q5", "1", "1", 'r', "q5"));
+        transitionList.add(new Transition("q5", " ", " ", 'l', "q6"));
+        transitionList.add(new Transition("q6", "0", " ", 'r', "q7"));
+        transitionList.add(new Transition("q7", " ", " ", 'r', "q8"));
+        transitionList.add(new Transition("q8", "0", "0", 'r', "q8"));
+        transitionList.add(new Transition("q8", " ", "0", 'l', "q9"));
+        transitionList.add(new Transition("q9", "0", "0", 'l', "q9"));
+        transitionList.add(new Transition("q9", " ", " ", 'l', "q10"));
+        transitionList.add(new Transition("q10", " ", " ", 'l', "q10"));
+        transitionList.add(new Transition("q10", "0", " ", 'r', "q11"));
+        transitionList.add(new Transition("q10", "1", "1", 'r', "q12"));
+        transitionList.add(new Transition("q11", " ", " ", 'r', "q11"));
+        transitionList.add(new Transition("q11", "0", "0", 'r', "q8"));
+        transitionList.add(new Transition("q12", " ", " ", 'r', "q12"));
+        transitionList.add(new Transition("q12", "0", "0", 'l', "q13"));
+        transitionList.add(new Transition("q13", " ", " ", 'l', "q14"));
+        transitionList.add(new Transition("q14", " ", "0", 'l', "q14"));
+        transitionList.add(new Transition("q14", "1", "1", 'l', "q3"));
+        transitionList.add(new Transition("q15", "1", " ", 'l', "q15"));
+        transitionList.add(new Transition("q15", "0", " ", 'l', "q15"));
+        transitionList.add(new Transition("q15", " ", " ", 'r', "q17"));
+        transitionList.add(new Transition("q16", "0", " ", 'r', "q16"));
+        transitionList.add(new Transition("q16", " ", " ", 'r', "q17"));
 
-        UniversalTuringMachine ut = new UniversalTuringMachine(5, 2, transitionList, true, "q0", "q4");
+        UniversalTuringMachine ut = new UniversalTuringMachine(0, 3, transitionList, true, "q0", "q17");
 
         while(ut.run()) {
         }

@@ -115,7 +115,7 @@ public class UniversalTuringMachine {
 		public boolean run() {
 				boolean isRunning = true;
 
-				calcStep();
+				calculateStep();
 				if(stepByStep) {
 						getMachineOutput();
 				}
@@ -128,7 +128,7 @@ public class UniversalTuringMachine {
 				return isRunning;
 		}
 
-		private void calcStep() {
+		private void calculateStep() {
 
 				tapeStep();
 				stepCounter++;

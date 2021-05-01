@@ -49,9 +49,15 @@ public class App {
         transitionList.add(new Transition("q16", "0", " ", 'r', "q16"));
         transitionList.add(new Transition("q16", " ", " ", 'r', "q17"));
 
-        UniversalTuringMachine ut = new UniversalTuringMachine(0, 3, transitionList, true, "q0", "q17");
+        UniversalTuringMachine ut = new UniversalTuringMachine(17, 0, transitionList, true, "q0", "q17");
 
-        while(ut.run()) {
+        try {
+            boolean isRunning = true;
+            while (isRunning) {
+                isRunning = ut.run();
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Looks like something went wrong!\n" + e.getMessage());
         }
 
         System.out.println("Result of calculation: " + ut.getResult());

@@ -10,12 +10,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Demo app of universal turing machine for THIN Praktikum 9.
+ * @author kressjan
+ * @version 0.3.
+ */
 public class App {
 
     public static void main(String[] args) {
 
-        HashSet<Transition> transitionsMultiplication = TransitionImporter.importSet(new File("./app/src/main/resources/multiplication.csv"));;
-        HashSet<Transition> transitionsAddition = TransitionImporter.importSet(new File("./app/src/main/resources/addition.csv"));
+        HashSet<Transition> transitionsMultiplication = TransitionImporter.importSet(new File("./src/main/resources/multiplication.csv"));;
+        HashSet<Transition> transitionsAddition = TransitionImporter.importSet(new File("./src/main/resources/addition.csv"));
 
         UniversalTuringMachine tm = new UniversalTuringMachine(2, 4, transitionsMultiplication, false);
 
@@ -37,5 +42,10 @@ public class App {
         tm = new UniversalTuringMachine(23, 0, transitionsMultiplication, false);
         while (tm.run()) {}
         System.out.println("Result of calculation 23 * 0 = " + tm.getResult());
+
+        // 15 + 6 = 21
+        tm = new UniversalTuringMachine(15, 6, transitionsAddition, true);
+        while (tm.run()) {}
+        System.out.println("Result of calculation 15 + 6 = " + tm.getResult());
     }
 }

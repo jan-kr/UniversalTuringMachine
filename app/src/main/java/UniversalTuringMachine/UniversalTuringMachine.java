@@ -2,11 +2,20 @@ package UniversalTuringMachine;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
+ * This is the implementation of a universal turing machine.
+ * For a mathematic operation, the transitions can be given
+ * as a transition hashset, or imported from a csv file.
+ * When providing a csv, start and end states must be provided
+ * on first cell of the file.
+ * Supports a stepper mode. If enabled, each calculation step
+ * will be printed visually on the console. If disabled, only
+ * the result will be shown on console.
  * @author kressjan
- * @version 0.0.1
+ * @version 0.2.0
  */
 public class UniversalTuringMachine {
 
@@ -41,16 +50,13 @@ public class UniversalTuringMachine {
 		 * @param number2 number 2 of the calculation
  		 * @param transitionSet HashSet containing the {@link Transition}s
 		 * @param stepByStep boolean that controlls the stepper mode
-		 * @param startState start state of the calculation
-		 * @param endState accepted end state of the calculation
 		 */
 		public UniversalTuringMachine(
-				int number1, int number2, HashSet transitionSet,
-				boolean stepByStep, String startState, String endState)
+				int number1, int number2, HashSet transitionSet, boolean stepByStep)
 		{
 				tapeList = new ArrayList<>();
 				setCalculationNumbers(number1, number2);
-				setTransitions(transitionSet, startState, endState);
+				setTransitions(transitionSet);
 				setStepperMode(stepByStep);
 				tapePointer += initialBlankCells;
 		}
@@ -72,6 +78,13 @@ public class UniversalTuringMachine {
 				return result;
 		}
 
+		/**
+		 * This method runs the turing machine and returns a true,
+		 * as long as the calculation is still running.
+		 * If the stepper mode is enabled, each step will be printed
+		 * to the console. Else the output is only printed on completion.
+		 * @return true, if still calculating
+		 */
 		public boolean run() {
 				boolean isRunning = true;
 
@@ -114,10 +127,9 @@ public class UniversalTuringMachine {
 		 * Set the transition set for the calculation
 		 * @param transitionSet HashSet containing the available transitions
 		 */
-		public void setTransitions(HashSet<Transition> transitionSet, String startState, String endState) {
+		public void setTransitions(HashSet<Transition> transitionSet) {
+				setRelevantStates(transitionSet);
 				this.transitionSet = transitionSet;
-				this.state = startState;
-				this.endState = endState;
 		}
 
 		private void calculateStep() {
@@ -129,8 +141,9 @@ public class UniversalTuringMachine {
 		 * This method prints the current machine states and the visual tape
 		 */
 		private void getMachineOutput() {
-				System.out.printf("\n%-30s%s\n%-30s%d%n%-30s%d%s%n",
+				System.out.printf("\n%-30s%s\n%-30s%s\n%-30s%d\n%-30s%d%s\n",
 						"Machine state:", state,
+						"Accepting end state:", endState,
 						"Number of steps:", stepCounter,
 						"Pointer position on tape:" ,tapePointer ,
 						getTape());
@@ -176,6 +189,18 @@ public class UniversalTuringMachine {
 				}
 		}
 
+		private void setRelevantStates(HashSet<Transition> transitionSet) {
+				Iterator<Transition> iterator = transitionSet.iterator();
+				while(iterator.hasNext()) {
+						Transition transition = iterator.next();
+						if(transition.getDirection() == 'e') {
+								this.state = transition.getState();
+								this.endState = transition.getNewState();
+								iterator.remove();
+						}
+				}
+		}
+
 		private void setupTape(int number1, int number2) {
 				for (int i = 0; i <= initialBlankCells; i++) {
 						tapeList.add(BLANK_SYMBOL);
@@ -207,7 +232,7 @@ public class UniversalTuringMachine {
 				}
 		}
 
-		public void writeToTape(String value, char direction) {
+		private void writeToTape(String value, char direction) {
 				tapeList.set(tapePointer, value);
 				try {
 						moveTapePointer(direction);

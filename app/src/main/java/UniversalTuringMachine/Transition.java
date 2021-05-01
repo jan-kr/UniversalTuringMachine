@@ -9,7 +9,7 @@ public class Transition {
 
 
 		public Transition(String state, String tapeValue, String tapeValueNew, char direction, String newState) {
-				if(direction != 'r' && direction != 'l') {
+				if(direction != 'r' && direction != 'l' && direction != 'e') {
 						throw new IllegalArgumentException("Illegal direction given!");
 				}
 				this.state = state;

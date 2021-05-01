@@ -15,7 +15,7 @@ import java.util.List;
  * will be printed visually on the console. If disabled, only
  * the result will be shown on console.
  * @author kressjan
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class UniversalTuringMachine {
 
@@ -128,8 +128,9 @@ public class UniversalTuringMachine {
 		 * @param transitionSet HashSet containing the available transitions
 		 */
 		public void setTransitions(HashSet<Transition> transitionSet) {
-				setRelevantStates(transitionSet);
-				this.transitionSet = transitionSet;
+				HashSet<Transition> copy = (HashSet) transitionSet.clone();
+				setRelevantStates(copy);
+				this.transitionSet = copy;
 		}
 
 		private void calculateStep() {

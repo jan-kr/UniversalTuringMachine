@@ -17,18 +17,25 @@ public class App {
         HashSet<Transition> transitionsMultiplication = TransitionImporter.importSet(new File("./app/src/main/resources/multiplication.csv"));;
         HashSet<Transition> transitionsAddition = TransitionImporter.importSet(new File("./app/src/main/resources/addition.csv"));
 
-        UniversalTuringMachine tm = new UniversalTuringMachine(2, 3, transitionsAddition, false);
+        UniversalTuringMachine tm = new UniversalTuringMachine(2, 4, transitionsMultiplication, false);
 
-        try {
-            boolean isRunning = true;
-            while (isRunning) {
-                isRunning = tm.run();
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println("Looks like something went wrong...\nError: " + e.getMessage());
-        }
+        // 2 * 4 = 8
+        while (tm.run()) {}
+        System.out.println("Result of calculation 2 * 4 = " + tm.getResult());
 
-        System.out.println("Result of calculation: " + tm.getResult());
+        // 13 * 17 = 221
+        tm = new UniversalTuringMachine(13, 17, transitionsMultiplication, false);
+        while (tm.run()) {}
+        System.out.println("Result of calculation 13 * 17 = " + tm.getResult());
 
+        // 1 * 27 = 27
+        tm = new UniversalTuringMachine(1, 27, transitionsMultiplication, false);
+        while (tm.run()) {}
+        System.out.println("Result of calculation 1 * 27 = " + tm.getResult());
+
+        // 23 * 0 = 0
+        tm = new UniversalTuringMachine(23, 0, transitionsMultiplication, false);
+        while (tm.run()) {}
+        System.out.println("Result of calculation 23 * 0 = " + tm.getResult());
     }
 }

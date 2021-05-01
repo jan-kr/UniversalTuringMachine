@@ -25,28 +25,42 @@ public class UniversalTuringMachine {
 		private static final String NUMBER_SYMBOL = "0";
 		private static final String SEPARATOR_SYMBOL = "1";
 
+		/**
+		 * Initialize a turing machine without parameters.
+		 * Settings can be changed with setter methods.
+		 */
+		public UniversalTuringMachine() {
+				tapeList = new ArrayList<>();
+				tapePointer += initialBlankCells;
+		}
+
+		/**
+		 * Initialize a turing machine with the given parameters.
+		 * With this constructor, the initialized machine is ready to run.
+		 * @param number1 number 1 of the calculation
+		 * @param number2 number 2 of the calculation
+ 		 * @param transitionSet HashSet containing the {@link Transition}s
+		 * @param stepByStep boolean that controlls the stepper mode
+		 * @param startState start state of the calculation
+		 * @param endState accepted end state of the calculation
+		 */
 		public UniversalTuringMachine(
 				int number1, int number2, HashSet transitionSet,
 				boolean stepByStep, String startState, String endState)
 		{
-				if (number1 < 0 || number2 < 0) {
-						throw new IllegalArgumentException("Illegal values for multiplication!");
-				}
-
 				tapeList = new ArrayList<>();
-				this.number1 = number1;
-				this.number2 = number2;
-				this.transitionSet = transitionSet;
-				this.stepByStep = stepByStep;
-				this.state = startState;
-				this.endState = endState;
+				setCalculationNumbers(number1, number2);
+				setTransitions(transitionSet, startState, endState);
+				setStepperMode(stepByStep);
 				tapePointer += initialBlankCells;
-
-				setupTape(number1, number2);
 		}
 
-
-
+		/**
+		 * Returns the result of the calculation of the turing machine.
+		 * Counts the number of NUMBER_SYMBOL elements on the tape.
+		 * If called during operation, it delivers a wrong result!
+		 * @return result of the operation
+		 */
 		public int getResult() {
 				int result = 0;
 
@@ -72,6 +86,38 @@ public class UniversalTuringMachine {
 				}
 
 				return isRunning;
+		}
+
+		/**
+		 * Set the numbers to calculate
+		 * @param number1 first number of calculation
+		 * @param number2 second number of calculation
+		 */
+		public void setCalculationNumbers(int number1, int number2) {
+				if (number1 < 0 || number2 < 0) {
+						throw new IllegalArgumentException("Illegal values for multiplication!");
+				}
+				this.number1 = number1;
+				this.number2 = number2;
+				setupTape(number1, number2);
+		}
+
+		/**
+		 * This method toggles the stepper mode of the turing machine
+		 * @param stepByStep true, if stepper mode enabled
+		 */
+		public void setStepperMode(boolean stepByStep) {
+				this.stepByStep = stepByStep;
+		}
+
+		/**
+		 * Set the transition set for the calculation
+		 * @param transitionSet HashSet containing the available transitions
+		 */
+		public void setTransitions(HashSet<Transition> transitionSet, String startState, String endState) {
+				this.transitionSet = transitionSet;
+				this.state = startState;
+				this.endState = endState;
 		}
 
 		private void calculateStep() {

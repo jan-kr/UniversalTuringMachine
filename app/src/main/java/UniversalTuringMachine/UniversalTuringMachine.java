@@ -83,8 +83,6 @@ public class UniversalTuringMachine {
     public void printTransitionTable() {
         ArrayList<Transition>[] arrayList = new ArrayList[getHighestState()];
 
-        System.out.println(arrayList[1]);
-
         for (int i = 0; i < getHighestState(); i++) {
             arrayList[i] = new ArrayList<>();
             String transitionID = "q" + i;

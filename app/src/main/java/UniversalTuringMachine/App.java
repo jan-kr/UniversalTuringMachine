@@ -27,44 +27,28 @@ public class App {
 
         // 2 * 4 = 8
         tm = new UniversalTuringMachine(2, 4, transitions.get("Multiplication"), false);
-        tm.printTransitionTable();
         while (tm.run()) {
         }
         System.out.println("Result of calculation 2 * 4 = " + tm.getResult());
 
         // 13 * 17 = 221
         tm = new UniversalTuringMachine(13, 17, transitions.get("Multiplication"), false);
-        tm.printTransitionTable();
         while (tm.run()) {
         }
         System.out.println("Result of calculation 13 * 17 = " + tm.getResult());
 
         // 1 * 27 = 27
         tm = new UniversalTuringMachine(1, 27, transitions.get("Multiplication"), false);
-        tm.printTransitionTable();
         while (tm.run()) {
         }
         System.out.println("Result of calculation 1 * 27 = " + tm.getResult());
 
         // 23 * 0 = 0
         tm = new UniversalTuringMachine(23, 0, transitions.get("Multiplication"), false);
-        tm.printTransitionTable();
         while (tm.run()) {
         }
         System.out.println("Result of calculation 23 * 0 = " + tm.getResult());
-
-        // 15 + 6 = 21
-        tm = new UniversalTuringMachine(15, 6, transitions.get("Addition"), false);
-        tm.printTransitionTable();
-        while (tm.run()) {
-        }
-        System.out.println("Result of calculation 15 + 6 = " + tm.getResult());
-
-        // 15 - 6 = 9
-        tm = new UniversalTuringMachine(15, 6, transitions.get("Subtraction"), false);
-        tm.printTransitionTable();
-        while (tm.run()) {
-        }
-        System.out.println("Result of calculation 15 - 6 = " + tm.getResult());
+		
+		tm.printTransitionTable();
     }
 }

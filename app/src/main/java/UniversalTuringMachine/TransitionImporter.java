@@ -13,7 +13,7 @@ import java.util.IllegalFormatConversionException;
  * containing the transitions of the csv.
  *
  * @author kressjan
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class TransitionImporter {
     private static boolean hasStartEndState = false;
@@ -34,7 +34,7 @@ public class TransitionImporter {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
-                hasStartEndState = addTransitionToSet(line, transitionSet);
+                addTransitionToSet(line, transitionSet);
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -45,7 +45,7 @@ public class TransitionImporter {
         return transitionSet;
     }
 
-    private static boolean addTransitionToSet(String line, HashSet<Transition> transitionSet) {
+    private static void addTransitionToSet(String line, HashSet<Transition> transitionSet) {
         String[] elements = line.split(",");
         if (elements.length == 5) {
             if (elements[3].charAt(0) == 'e') {
@@ -59,6 +59,5 @@ public class TransitionImporter {
             }
             transitionSet.add(new Transition(elements[0], elements[1], elements[2], elements[3].charAt(0), elements[4]));
         }
-        return hasStartEndState;
     }
 }

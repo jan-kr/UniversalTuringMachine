@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.IllegalFormatConversionException;
 
+/**
+ * TransitionImporter for turing machine.
+ * This importer can import the transitions of a csv and give back a transition hashset
+ * containing the transitions of the csv.
+ *
+ * @author kressjan
+ * @version 1.0.0
+ */
 public class TransitionImporter {
 	private static boolean hasStartEndState = false;
 
@@ -38,10 +46,10 @@ public class TransitionImporter {
 
 	private static boolean addTransitionToSet(String line, HashSet<Transition> transitionSet) {
 		String[] elements = line.split(",");
-		if(elements.length == 2) {
-			transitionSet.add(new Transition(elements[0], null, null, 'e', elements[1]));
-			hasStartEndState = true;
-		} else if(elements.length == 5) {
+		if(elements.length == 5) {
+			if(elements[3].charAt(0) == 'e') {
+				hasStartEndState = true;
+			}
 			if(elements[1].isEmpty()) {
 				elements[1] = " ";
 			}

@@ -21,8 +21,6 @@ public class UniversalTuringMachine {
     private int initialBlankCells = 30;
     private int viewSpan = 15;
     private int stepCounter = 0;
-    private int number1 = 0;
-    private int number2 = 0;
     private int tapePointer = 1;
     private HashSet<Transition> transitionSet;
     private List<String> tapeList;
@@ -81,18 +79,9 @@ public class UniversalTuringMachine {
      * This method prints the current transition table of the turing machine
      */
     public void printTransitionTable() {
-        ArrayList<Transition>[] arrayList = new ArrayList[getHighestState()];
+        ArrayList<Transition>[] arrayList = getTransitionList();
 
-        for (int i = 0; i < getHighestState(); i++) {
-            arrayList[i] = new ArrayList<>();
-            String transitionID = "q" + i;
 
-            for (Transition transition : transitionSet) {
-                if (transitionID.equals(transition.getState())) {
-                    arrayList[i].add(transition);
-                }
-            }
-        }
         System.out.printf("| %-12s | %-12s | %-12s | %-12s | %-12s |%n",
                 "State", "Tape value", "Write value", "Direction", "Next state");
         for (int i = 0; i < arrayList.length; i++) {
@@ -141,8 +130,6 @@ public class UniversalTuringMachine {
         if (number1 < 0 || number2 < 0) {
             throw new IllegalArgumentException("Illegal values for multiplication!");
         }
-        this.number1 = number1;
-        this.number2 = number2;
         setupTape(number1, number2);
     }
 
@@ -207,6 +194,23 @@ public class UniversalTuringMachine {
 
         pointerString.append("\n" + tapeString);
         return pointerString.toString();
+    }
+
+    private ArrayList<Transition>[] getTransitionList() {
+
+        ArrayList<Transition>[] arrayList = new ArrayList[getHighestState()];
+
+        for (int i = 0; i < getHighestState(); i++) {
+            arrayList[i] = new ArrayList<>();
+            String transitionID = "q" + i;
+
+            for (Transition transition : transitionSet) {
+                if (transitionID.equals(transition.getState())) {
+                    arrayList[i].add(transition);
+                }
+            }
+        }
+        return arrayList;
     }
 
     private void moveTapePointer(char direction) {
@@ -286,6 +290,5 @@ public class UniversalTuringMachine {
         }
         return highestTransition;
     }
-
 
 }

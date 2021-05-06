@@ -48,7 +48,8 @@ public class App {
         while (tm.run()) {
         }
         System.out.println("Result of calculation 23 * 0 = " + tm.getResult());
-		
+
+        System.out.println();
 		tm.printTransitionTable();
     }
 }

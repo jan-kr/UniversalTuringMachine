@@ -46,7 +46,7 @@ public class UniversalTuringMachine {
      * @param number1       number 1 of the calculation
      * @param number2       number 2 of the calculation
      * @param transitionSet HashSet containing the {@link Transition}s
-     * @param stepByStep    boolean that controlls the stepper mode
+     * @param stepByStep    boolean that controls the stepper mode
      */
     public UniversalTuringMachine(
             int number1, int number2, HashSet transitionSet, boolean stepByStep) {

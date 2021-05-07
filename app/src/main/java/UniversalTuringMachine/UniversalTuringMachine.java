@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * This is the implementation of a universal turing machine.
- * For a mathematic operation, the transitions can be given
+ * For a mathematical operation, the transitions can be given
  * as a transition hashset, or imported from a csv file.
  * When providing a csv, start and end states must be provided
  * on first cell of the file.
@@ -80,7 +80,6 @@ public class UniversalTuringMachine {
      */
     public void printTransitionTable() {
         ArrayList<Transition>[] arrayList = getTransitionList();
-
 
         System.out.printf("| %-12s | %-12s | %-12s | %-12s | %-12s |%n",
                 "State", "Tape value", "Write value", "Direction", "Next state");
@@ -265,7 +264,6 @@ public class UniversalTuringMachine {
                 transitionFound = true;
             }
         }
-
         if (!transitionFound) {
             throw new IllegalArgumentException("No possible transition found!");
         }
